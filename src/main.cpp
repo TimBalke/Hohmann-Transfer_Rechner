@@ -11,36 +11,35 @@ double G = 6.67430E-11;
 float gErde = 9.81;
 double mErde = 5.9722E24;
 
+double mKerbol = 1.7565459E28;
+
 
 int mass;
-int sMAxis1 = 0;
-int sMAxis2 = 0;
+long long sMAxis1 = 0;
+long long sMAxis2 = 0;
 
-double velocityCircularOrbit(int sMAxis){
-    double velocity = sqrtf( (G * mErde) / sMAxis );
-
-    return velocity;
-}
-
-double velocityTransferBegin(int r1, int r2){
-
-    double velocity = sqrtf(2 * G * mErde * ((1.0 / r1) - (1.0 / (r1 + r2))));
+double velocityCircularOrbit(long long sMAxis){
+    
+    double velocity = sqrtf( (G * mKerbol) / sMAxis );
 
     return velocity;
 }
 
-double velocityTransferEnd(int r1, int r2){
-    double velocity = sqrtf(2 * G * mErde * ((1.0 / r2) - (1.0 / (r1 + r2))));
+double velocityTransferBegin(long long r1, long long r2){
+
+    double velocity = sqrtf(2 * G * mKerbol * ((1.0 / r1) - (1.0 / (r1 + r2))));
+
+    return velocity;
+}
+
+double velocityTransferEnd(long long r1, long long r2){
+    double velocity = sqrtf(2 * G * mKerbol * ((1.0 / r2) - (1.0 / (r1 + r2))));
 
     return velocity;
 }
 
 bool userEingabe(){
 
-    // Sattelite Masse abfragen:
-    //cout << "Sattelite Masse in kg: ";
-    //cin >> mass;
-    //cout << endl;
 
     // Semi Major Axis abfragen:
     cout << "Semi Major Axis 1 in m: ";
@@ -50,9 +49,6 @@ bool userEingabe(){
     cout << "Semi Major Axis 2 in m: ";
     cin >> sMAxis2;
     cout << endl;
-
-    //cout << "Die Geschwindigkeit des Sattelit beträgt im ersten Orbit: " << velocityCircularOrbit(sMAxis1) << "m/s." << endl;
-    //cout << "Die Geschwindigkeit des Sattelit beträgt im zweiten Orbit: " << velocityCircularOrbit(sMAxis2) << "m/s." << endl;
 
     return false;
 }
@@ -71,9 +67,6 @@ int main(){
     float DelatVTwo = VelocityTwo - VelocityTwoB;
 
     float totalDeltaV = DeltaVOne + DelatVTwo;
-
-
-
 
 
     cout << "Die Geschwindigkeit des Sattelit beträgt im ersten Orbit: " << VelocityOne << "m/s." << endl;
